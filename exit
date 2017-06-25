@@ -1,0 +1,12 @@
+[33mcommit d39801dcc996d521e1d3cf5cc3b6e6cd6fc849bb[m
+Author: Angular CLI <angular-cli@angular.io>
+Date:   Fri Jun 23 14:50:28 2017 -0300
+
+    chore: initial commit from @angular/cli
+    
+        _                      _                 ____ _     ___
+       / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+      / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+     / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+    /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+                   |___/
