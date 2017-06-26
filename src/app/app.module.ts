@@ -8,6 +8,8 @@ import {AF} from "./providers/af";
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import {RouterModule, Routes} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
 
 
 export const firebaseConfig = {
@@ -20,6 +22,7 @@ export const firebaseConfig = {
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
+  { path:'charSheet', component: CharacterSheetComponent},
   { path: 'login', component: LoginPageComponent }
 ];
 
@@ -27,14 +30,16 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    CharacterSheetComponent
   ],
   imports: [
     BrowserModule,
      AngularFireModule.initializeApp(firebaseConfig),
      RouterModule.forRoot(routes),
      AngularFireDatabaseModule,
-     AngularFireAuthModule
+     AngularFireAuthModule,
+     FormsModule
   ],
   providers: [AF],
   bootstrap: [AppComponent]
