@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AF } from "../providers/af";
+import {FirebaseListObservable} from "angularfire2/database";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-character-sheet',
@@ -6,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./character-sheet.component.css']
 })
 export class CharacterSheetComponent implements OnInit {
+  
+   public characters: FirebaseListObservable<any>;
 
-  constructor() { }
+  constructor(public afService: AF,private router: Router) {
+    this.characters = this.afService.characters;
+  }
   ngOnInit() {
   }
 
@@ -148,6 +155,12 @@ public updateResutls(value:number,stat:string){
 		}
 
 	};
+
+	saveCharacter(){
+		this.afService.saveCharacter(this.STATS,this.PERCEPTION,
+		this.HEALTH,this.MOVEMENT,this.WEAPONS,this.GENERALS,
+		this.SUBTREFUGE,this.MAGIC,this.DEFENSE)
+	}
 
 
 

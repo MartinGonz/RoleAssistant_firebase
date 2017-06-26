@@ -1,6 +1,7 @@
 <form  class="form conteiner "> 
-
-	<div class="col-md-12 form-group">
+<div class="container">
+	
+	<div class="col-md-12 row form-group">
 		<div class=" pull-left "> 
 		 <h4>Perception</h4>
 		 <table>
@@ -20,7 +21,7 @@
 		  </tbody>
 		  </table>
 		</div>
-		<div class=" col-md-4 col-md-offset-2 pull-left">
+		<div class=" col-md-4 col-md-offset-2 pull-rigth">
 		   <h4>Health</h4>
 		 <table>
 		  <thead>
@@ -39,6 +40,7 @@
 		  </tbody>
 		  </table>
 		</div>
+		<div class="row col-md-12">
 		<div class="pull-left">
 		 <h4>Movement</h4>
 			 <table>
@@ -94,7 +96,7 @@
 			  </tbody>
 			</table>
 		</div>
-		  <div class="col col-md-2 col-md-offset-3 pull-left">
+		  <div class="col col-md-2 col-md-offset-3 pull-rigth">
 			<h4>Stats</h4>
 			<table>
 			  <tr>
@@ -123,8 +125,9 @@
 			  </tr>
 			  </table>
 		</div>
+		</div>
 	</div>
-	<div class="col-md-12 form-group">
+	<div class="col-md-12 row form-group">
 		<div class="pull-left ">
 			<h4>Weapons</h4>
 				<table>
@@ -248,7 +251,7 @@
 			   </table>
 		 </div>
 	</div>
-	<div class="col-md-12 form-group">
+	<div class="col-md-12 row  form-group">
 	<div class="pull-left">  
 	   <h4>Subtrefuge</h4>
 	   <table   >
@@ -346,53 +349,62 @@
 	   </table>
 	  </div>
 	</div>
+	
+		<div class="row col-md-12 form-group">
+			<div class="col-md-4 pull-left "> 
+				<h4>Defensive Bonus</h4>
+					<table>
+					<thead>
+							<td>Hability (5)</td>
+							<td>Bonus Items</td>
+							<td>Reductions</td>
+							<td>TOTAL</td>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input onkeypress="return false"  type="number" step="5" (ngModelChange)="!setStats(DEFENSE.DB,0,DEFENSE.BDB,0,DEFENSE.RDB,24)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DEFENSE.DB" min="0" max="40"></td>
+							<td><input onkeypress="return false"  type="number" step="5" (ngModelChange)="!setStats(DEFENSE.DB,0,DEFENSE.BDB,0,DEFENSE.RDB,24)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DEFENSE.BDB" min="0" max="50"></td>
+							<td><input onkeypress="return false"  type="number" step="5" (ngModelChange)="!setStats(DEFENSE.DB,0,DEFENSE.BDB,0,DEFENSE.RDB,24)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DEFENSE.RDB" min="0" max="40"></td>
+							<td>{{result[24].ability5 - result[24].reduction + result[24].bonusMix + result[24].stat}} DB </td>
+						</tr>
+					</tbody>
+					</table>
+			</div> 
+			<div class="btn-group col-md-8 mt-5">
+					<div class="pull-left col-md-1 pl-2">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(0,100)">D100</button>
+					<div class="pull-rigth col-md-1">{{rolls[0].value}}</div>
+					</div>
+					<div class="pull-left col-md-1">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(1,20)">D20</button>
+						<div class="pull-rigth col-md-1">{{rolls[1].value}}</div>
+					</div>
+					<div class="pull-left col-md-1">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(2,12)">D12</button>
+						<div class="pull-rigth col-md-1">{{rolls[2].value}}</div>
+					</div>
+					<div class="pull-left col-md-1">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(3,10)" >D10</button>
+						<div class="pull-rigth col-md-1">{{rolls[3].value}}</div>
+					</div>
+					<div class="pull-left col-md-1">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(4,8)">D8</button>
+						<div class="pull-rigth col-md-1">{{rolls[4].value}}</div>
+					</div>
+					<div class="pull-left col-md-1">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(5,4)">D4</button>
+						<div class="pull-rigth col-md-1">{{rolls[5].value}}</div>
+					</div>
+					<div class="pull-left col-md-1">
+						<button class="btn btn-default btn-md" (click)="getDiceRoll(6,2)">Coin</button>
+						<div class="pull-rigth pl-2">{{coin[rolls[6].value].state}}</div>
+					</div>
+				</div>
 
-	<div class="col-md-4 pull-left form-group"> 
-		<h4>Defensive Bonus</h4>
-			<table>
-			<thead>
-					<td>Hability (5)</td>
-					<td>Bonus Items</td>
-					<td>Reductions</td>
-					<td>TOTAL</td>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input onkeypress="return false"  type="number" step="5" (ngModelChange)="!setStats(DEFENSE.DB,0,DEFENSE.BDB,0,DEFENSE.RDB,24)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DEFENSE.DB" min="0" max="40"></td>
-					<td><input onkeypress="return false"  type="number" step="5" (ngModelChange)="!setStats(DEFENSE.DB,0,DEFENSE.BDB,0,DEFENSE.RDB,24)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DEFENSE.BDB" min="0" max="50"></td>
-					<td><input onkeypress="return false"  type="number" step="5" (ngModelChange)="!setStats(DEFENSE.DB,0,DEFENSE.BDB,0,DEFENSE.RDB,24)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DEFENSE.RDB" min="0" max="40"></td>
-					<td>{{result[24].ability5 - result[24].reduction + result[24].bonusMix + result[24].stat}} DB </td>
-				</tr>
-			</tbody>
-			</table>
-	</div> 
-	<br>
-   	<div class="pull-left form-group col-md-1">
-				<button (click)="getDiceRoll(0,100)">D100</button>
-			<div class="pull-rigth col-md-1">{{rolls[0].value}}</div>
-			</div>
-			<div class="pull-left col-md-1">
-				<button (click)="getDiceRoll(1,20)">D20</button>
-				<div class="pull-rigth col-md-1">{{rolls[1].value}}</div>
-			</div>
-			<div class="pull-left col-md-1">
-				<button (click)="getDiceRoll(2,12)">D12</button>
-				<div class="pull-rigth col-md-1">{{rolls[2].value}}</div>
-			</div>
-			<div class="pull-left col-md-1">
-				<button (click)="getDiceRoll(3,10)" >D10</button>
-				<div class="pull-rigth col-md-1">{{rolls[3].value}}</div>
-			</div>
-			<div class="pull-left col-md-1">
-				<button (click)="getDiceRoll(4,8)">D8</button>
-				<div class="pull-rigth col-md-1">{{rolls[4].value}}</div>
-			</div>
-			<div class="pull-left col-md-1">
-				<button (click)="getDiceRoll(5,4)">D4</button>
-				<div class="pull-rigth col-md-1">{{rolls[5].value}}</div>
-			</div>
-			<div class="pull-left col-md-1">
-				<button (click)="getDiceRoll(6,2)">Coin</button>
-				<div class="pull-rigth col-md-1">{{coin[rolls[6].value].state}}</div>
-			</div>
+			<figure class="col-md-2 col-md-offset-5 mt-5">
+					<a class="send-message btn btn-action" (click)="saveCharacter()">SAVE CHARACTER</a>
+			</figure>
+		</div>
+	</div>
+	
 </form>

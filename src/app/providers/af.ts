@@ -33,10 +33,7 @@ export class AF {
   logout() {
     return this.afAuth.auth.signOut();
   }
-  saveCharacter(character){
-      this.characters.push(character);
-  }
-
+  
     /**
    * Saves a message to the Firebase Realtime Database
    * @param text
@@ -49,6 +46,23 @@ export class AF {
       timestamp: Date.now()
     };
     this.messages.push(message);
+  }
+
+  saveCharacter(stats,perception,health,movement,weapons,generals,subtrefuge,magic,defense){
+      var character = {
+          email:this.email,
+          stats:stats,
+          perception:perception,
+          health:health,
+          movement:movement,
+          weapons:weapons,
+          generals:generals,
+          subtrefuge:subtrefuge,
+          magic:magic,
+          defense:defense,
+          timestamp:Date.now()
+      }
+      this.characters.push(character);
   }
 
 
