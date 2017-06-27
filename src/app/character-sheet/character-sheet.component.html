@@ -1,12 +1,22 @@
 <form  class="form conteiner "> 
 <div class="container">
-	
+
+	<div class="com-md-12 row">
+		<input class="col-md-3" type="string" [ngModelOptions]="{standalone: true}" [(ngModel)]="NAME" placeholder="Character Name">
+		<label class="col-md-offset-1 mt-2 mr-2">Load Character</label>
+		<select class="col-md-2 " (change)="loadCharacter(SELECTED_CHAR)" [(ngModel)]="SELECTED_CHAR" [ngModelOptions]="{standalone: true}" >
+		<option *ngFor="let character of characters | async" [ngValue]="character" > 
+				{{character.name}}
+		</option>
+		</select>
+		<button class="col-md-offset-3 btn btn-danger" (click)="resetSheet()">New Character Sheet</button>
+	</div>
 	<div class="col-md-12 row form-group">
 		<div class=" pull-left "> 
 		 <h4>Perception</h4>
 		 <table>
-		  <thead>
-			  	<td>Hability (5)</td>
+		  <thead class="p-2">
+			  	<td>Hability(5)</td>
 			  	<td>Bonus Items</td>
 			  	<td>Reductions</td>
 			  	<td>TOTAL</td>
@@ -21,20 +31,20 @@
 		  </tbody>
 		  </table>
 		</div>
-		<div class=" col-md-4 col-md-offset-2 pull-rigth">
-		   <h4>Health</h4>
-		 <table>
+		<div class="col-md-offset-3">
+		 <h4>Health</h4>
+		 <table class="pull-rigth">
 		  <thead>
-			  	<td>Hability (5)</td>
+			  	<td>Hability(5)</td>
 			  	<td>Bonus Items</td>
 			  	<td>Reductions</td>
 			  	<td>TOTAL</td>
 		  </thead>
 		  <tbody>
 			  <tr>
-			  	<td><input onkeypress="return false"  type="number" (ngModelChange)="!setStats(HEALTH.HP,0,HEALTH.BHP,0,HEALTH.RHP,5)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="HEALTH.HP" min="0" ></td>
-			  	<td><input onkeypress="return false"  type="number" (ngModelChange)="!setStats(HEALTH.HP,0,HEALTH.BHP,0,HEALTH.RHP,5)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="HEALTH.BHP" min="0" ></td>
-			    <td><input onkeypress="return false"  type="number" (ngModelChange)="!setStats(HEALTH.HP,0,HEALTH.BHP,0,HEALTH.RHP,5)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="HEALTH.RHP" min="0" ></td>
+			  	<td><input onkeypress="return false"   type="number" step="1" (ngModelChange)="!setStats(HEALTH.HP,0,HEALTH.BHP,0,HEALTH.RHP,5)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="HEALTH.HP"  min="0" ></td>
+			  	<td><input onkeypress="return false"   type="number" step="1" (ngModelChange)="!setStats(HEALTH.HP,0,HEALTH.BHP,0,HEALTH.RHP,5)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="HEALTH.BHP" min="0" ></td>
+			    <td><input onkeypress="return false"   type="number" step="1" (ngModelChange)="!setStats(HEALTH.HP,0,HEALTH.BHP,0,HEALTH.RHP,5)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="HEALTH.RHP" min="0" ></td>
 			  	<td>{{result[5].ability5 - result[5].reduction + result[5].bonusMix + result[5].stat}} HP </td>
 			  </tr>
 		  </tbody>
@@ -252,7 +262,7 @@
 		 </div>
 	</div>
 	<div class="col-md-12 row  form-group">
-	<div class="pull-left">  
+	 <div class="pull-left">  
 	   <h4>Subtrefuge</h4>
 	   <table   >
 	   		<thead>
@@ -349,9 +359,8 @@
 	   </table>
 	  </div>
 	</div>
-	
-		<div class="row col-md-12 form-group">
-			<div class="col-md-4 pull-left "> 
+	<div class="row col-md-12 form-group">
+			<div class="col-md-4 pull-left pl-0 "> 
 				<h4>Defensive Bonus</h4>
 					<table>
 					<thead>
@@ -401,10 +410,9 @@
 					</div>
 				</div>
 
-			<figure class="col-md-2 col-md-offset-5 mt-5">
-					<a class="send-message btn btn-action" (click)="saveCharacter()">SAVE CHARACTER</a>
-			</figure>
+			<div class="col-md-2 col-md-offset-5 mt-5 ">
+					<button class="btn btn-action " (click)="saveCharacter()">SAVE CHARACTER</button>
+			</div>
 		</div>
-	</div>
-	
+</div>
 </form>

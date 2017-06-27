@@ -10,14 +10,50 @@ import {Router} from "@angular/router";
 })
 export class CharacterSheetComponent implements OnInit {
   
-   public characters: FirebaseListObservable<any>;
-
+	public characters : FirebaseListObservable<{key:{
+													stats:{INT:number,AGI:number,PRE:number,CON:number,I:number,STR:number},
+													perception:{PR:number,BPR:number,RPR:number},
+													health:{HP:number,BHP:number,RHP:number},	
+													movement:{NA:number,BNA:number,RNA:number,
+															  LE:number,BLE:number,RLE:number,
+															  HL:number,BHL:number,RHL:number,
+															  CM:number,BCM:number,RCM:number,
+															  PL:number,BPL:number,RPL:number},
+													weapons:{ ED:number,ED2:number,BMED:number,BIED:number,RED:number,
+															  BL:number,BL2:number,BMBL:number,BIBL:number,RBL:number,
+															  TH:number,TH2:number,BMTH:number,BITH:number,RTH:number,
+															  THR:number,THR2:number,BMTHR:number,BITHR:number,RTHR:number,
+															  PRO:number,PRO2:number,BMPRO:number,BIPRO:number,RPRO:number,
+										 					  PO:number,PO2:number,BMPO:number,BIPO:number,RPO:number},
+													generals:{CL:number,CL2:number,BMCL:number,BICL:number,RCL:number,
+													  		  RD:number,RD2:number,BMRD:number,BIRD:number,RRD:number,
+															  SW:number,SW2:number,BMSW:number,BISW:number,RSW:number,
+															  TR:number,TR2:number,BMTR:number,BITR:number,RTR:number},
+													subtrefuge:{AM:number,AM2:number,BMAM:number,BIAM:number,RAM:number,
+																SH:number,SH2:number,BMSH:number,BISH:number,RSH:number,
+																LP:number,LP2:number,BMLP:number,BILP:number,RLP:number,
+																DT:number,DT2:number,BMDT:number,BIDT:number,RDT:number},
+													magic:{RN:number,RN2:number,BMRN:number,BIRN:number,RRN:number,
+														   UMO:number,UMO2:number,BMUMO:number,BIUMO:number,RUMO:number,
+														   DS:number,DS2:number,BMDS:number,BIDS:number,RDS:number},
+													defense:{DB:number,BDB:number,RDB:number},
+													email:string,
+													name:string,
+													timestamp:Date,
+												}
+											}[]>;
   constructor(public afService: AF,private router: Router) {
-    this.characters = this.afService.characters;
-  }
+   // this.characters = this.afService.keyCharMap;
+   this.characters = this.afService.characters
+}
   ngOnInit() {
   }
+  //public characters: [{key:string,char:any}];
+public CHARACTER_KEY:string ="";
 
+public NAME:string ="";
+
+public SELECTED_CHAR;
 
 public STATS = {INT:0,AGI:0,PRE:0,CON:0,I:0,STR:0};
 
@@ -29,7 +65,7 @@ public MOVEMENT = {NA:0,BNA:0,RNA:0,
 				   LE:0,BLE:0,RLE:0,
 				   HL:0,BHL:0,RHL:0,
 				   CM:0,BCM:0,RCM:0,
-				   PL:0,BPL:0,RPL:0, };
+				   PL:0,BPL:0,RPL:0};
 
 public WEAPONS = { ED:0,ED2:0,BMED:0,BIED:0,RED:0,
 				   BL:0,BL2:0,BMBL:0,BIBL:0,RBL:0,
@@ -101,16 +137,19 @@ public getDiceRoll(dice:number,max:number) {
 public  armourType(type:string) {
       return (type==this.equipedArmour);
     }
+
 public setEquipedArmour(armour:string){
       this.equipedArmour = armour;
     }
+
 public setStats(ability5:number,ability2:number,bonusMix:number,bonusItem:number,reduction:number, response:number){
 		this.result[response].ability5 = ability5;
 		this.result[response].ability2 = ability2;
 		this.result[response].bonusMix = bonusMix;
 		this.result[response].bonusItem = bonusItem;
 		this.result[response].reduction =reduction;
-		};
+	};
+	
 public updateResutls(value:number,stat:string){
 		switch (stat) {
 			case "INT":
@@ -130,7 +169,6 @@ public updateResutls(value:number,stat:string){
 				this.result[5].stat =value; 
 				break;
 			case "AGI":
-
 				this.result[0].stat = value; 
 				this.result[1].stat = value; 
 				this.result[2].stat = value;
@@ -149,19 +187,60 @@ public updateResutls(value:number,stat:string){
 				this.result[14].stat = value; 
 				this.result[20].stat = value; 
 				this.result[22].stat = value; 
-				break;
+				break;	
 			default:
 				break;
 		}
-
 	};
 
 	saveCharacter(){
-		this.afService.saveCharacter(this.STATS,this.PERCEPTION,
+		this.CHARACTER_KEY = this.afService.saveCharacter(this.CHARACTER_KEY,this.STATS,this.PERCEPTION,
 		this.HEALTH,this.MOVEMENT,this.WEAPONS,this.GENERALS,
-		this.SUBTREFUGE,this.MAGIC,this.DEFENSE)
+		this.SUBTREFUGE,this.MAGIC,this.DEFENSE,this.NAME)
 	}
 
+	loadCharacter(char){
+			console.log(char);
+			this.CHARACTER_KEY = char.$key;
+			this.STATS =char.stats;
+			this.PERCEPTION = char.perception
+			this.HEALTH = char.health;
+			this.MOVEMENT = char.movement
+			this.WEAPONS = char.weapons 
+			this.GENERALS =char.generals
+			this.SUBTREFUGE =char.subtrefuge
+			this.MAGIC =char.magic
+			this.DEFENSE = char.defense
+			this.NAME = char.name
+		}
 
-
+	resetSheet(){
+		this.NAME = "Insert Name Here";
+		this.STATS = {INT:0,AGI:0,PRE:0,CON:0,I:0,STR:0};
+		this.PERCEPTION = {PR:0,BPR:0,RPR:0};	
+		this.HEALTH = {HP:0,BHP:0,RHP:0};	
+		this.MOVEMENT = {NA:0,BNA:0,RNA:0,
+						LE:0,BLE:0,RLE:0,
+						HL:0,BHL:0,RHL:0,
+						CM:0,BCM:0,RCM:0,
+						PL:0,BPL:0,RPL:0};
+		this.WEAPONS = { ED:0,ED2:0,BMED:0,BIED:0,RED:0,
+						BL:0,BL2:0,BMBL:0,BIBL:0,RBL:0,
+						TH:0,TH2:0,BMTH:0,BITH:0,RTH:0,
+						THR:0,THR2:0,BMTHR:0,BITHR:0,RTHR:0,
+						PRO:0,PRO2:0,BMPRO:0,BIPRO:0,RPRO:0,
+						PO:0,PO2:0,BMPO:0,BIPO:0,RPO:0};
+		this.GENERALS = {CL:0,CL2:0,BMCL:0,BICL:0,RCL:0,
+						RD:0,RD2:0,BMRD:0,BIRD:0,RRD:0,
+						SW:0,SW2:0,BMSW:0,BISW:0,RSW:0,
+						TR:0,TR2:0,BMTR:0,BITR:0,RTR:0};
+		this.SUBTREFUGE = {AM:0,AM2:0,BMAM:0,BIAM:0,RAM:0,
+							SH:0,SH2:0,BMSH:0,BISH:0,RSH:0,
+							LP:0,LP2:0,BMLP:0,BILP:0,RLP:0,
+							DT:0,DT2:0,BMDT:0,BIDT:0,RDT:0};
+		this.MAGIC ={RN:0,RN2:0,BMRN:0,BIRN:0,RRN:0,
+					UMO:0,UMO2:0,BMUMO:0,BIUMO:0,RUMO:0,
+					DS:0,DS2:0,BMDS:0,BIDS:0,RDS:0};
+		this.DEFENSE = { DB:0,BDB:0,RDB:0};
+	}
 }
